@@ -42,6 +42,6 @@ def predict_datapoint():
     
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0")  # Enable debug mode and make it accessible from outside
+    app.run(host="0.0.0.0", debug= True)  # Enable debug mode and make it accessible from outside
      
 
