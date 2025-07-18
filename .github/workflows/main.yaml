@@ -82,10 +82,9 @@ jobs:
         run: |
           docker pull ${{ secrets.AWS_ECR_LOGIN_URI }}/${{ secrets.ECR_REPOSITORY_NAME }}:latest
 
-      # Optional: Stop and remove existing container
-      # - name: Stop and remove existing container
-      #   run: |
-      #     docker ps -q --filter "name=cnncls" | grep -q . && docker stop cnncls && docker rm cnncls || echo "No container to stop"
+      - name: Remove existing container if exists
+        run: |
+          docker rm -f cnncls || true
 
       - name: Run Docker container
         run: |
