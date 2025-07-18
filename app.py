@@ -5,14 +5,13 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from src.pipeline.predict_pipeline import CustomData, PredictPipeline
 
-application = Flask(__name__)  # Elastic Beanstalk looks for this name
+app = Flask(__name__)  # ✅ changed variable name to app
 
-# Route for home page
-@application.route('/')
+@app.route('/')
 def index():
     return render_template('index.html') 
 
-@application.route('/predictdata', methods=['GET', 'POST'])
+@app.route('/predictdata', methods=['GET', 'POST'])
 def predict_datapoint():
     if request.method == 'GET':
         return render_template('home.html')
@@ -27,7 +26,8 @@ def predict_datapoint():
             writing_score=float(request.form.get('writing_score'))
         )
         pred_df = data.get_data_as_data_frame()
-        print("Before Prediction:", pred_df)
+        print(pred_df)
+        print("Before Prediction")
 
         predict_pipeline = PredictPipeline()
         print("Mid Prediction")
@@ -36,4 +36,5 @@ def predict_datapoint():
 
         return render_template('home.html', results=results[0])
 
-
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=8080)  # ✅ added port 8080
